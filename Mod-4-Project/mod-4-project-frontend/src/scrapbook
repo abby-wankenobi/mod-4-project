@@ -1,0 +1,13 @@
+<MuseumBrowser
+art = {this.state.art}
+addArt = {this.handleAddArt}
+/>
+<Filter
+filter = {this.handleFilters}
+/>
+<Search
+searchTerm = {this.handleSearch}
+/>
+<SortBy
+sortBy = {this.handleSort}
+/>
