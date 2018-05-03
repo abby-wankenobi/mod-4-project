@@ -1,8 +1,8 @@
 import React from 'react'
-// import MuseumBrowser from './Museum/MuseumBrowser'
-// import Filter from './Museum/Filter'
-// import Search from './Museum/Search'
-// import SortBy from './Museum/SortBy'
+import MuseumBrowser from './Museum/MuseumBrowser'
+import Filter from './Museum/Filter'
+import Search from './Museum/Search'
+import SortBy from './Museum/SortBy'
 // import YourGallery from './Museum/YourGallery'
 
 const url = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/'
@@ -20,7 +20,7 @@ export default class MuseumPage extends React.Component{
   }
   componentDidMount(){
     fetch(url + this.state.filters + API).then(r => r.json())
-    .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item.title]})))
+    .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item]})))
   }
 
   handleSort = sortParams => {
@@ -41,10 +41,12 @@ export default class MuseumPage extends React.Component{
     }
   }
   render(){
-    console.log(this.state.art)
     return(
       <div>
-
+        <Filter/>
+        <MuseumBrowser
+        art = {this.state.art}
+        />
       </div>
     )
   }
