@@ -5,7 +5,7 @@ export default class Filter extends React.Component{
     super()
     this.state = {
       artists:[],
-      types: [],
+      types: ['Paintings', 'Sculpture','Furniture and interiors', 'Fashion', 'Applied Arts', 'Weapon and ship models', 'Works on paper', 'Asian art'],
       category: 'artists',
       option: ''
 
@@ -13,16 +13,15 @@ export default class Filter extends React.Component{
   }
   componentDidMount(){
     fetch('https://www.rijksmuseum.nl/api/en/collection/?key=BDC9BYuC&format=json').then(r => r.json()).then(r => r.facets[0].facets.forEach(n => this.setState({artists: [...this.state.artists, n.key]})))
-    fetch('https://www.rijksmuseum.nl/api/en/collection/?key=BDC9BYuC&format=json').then(r => r.json()).then(r => r.facets[4].facets.forEach(n => this.setState({types: [...this.state.types, n.key]})))
   }
   handleChangeCategory = event => {
-    this.setState({category: event.target.value})
+    this.props.setFilterCat({category: event.target.value})
   }
   handleChangeOption = event => {
-    this.setState({option: event.target.value})
+    this.props.setFilterOption({option: event.target.value})
   }
   handleClick = event => {
-    this.props.setFilter(this.state.option)
+    this.props.fetchArtKey()
   }
 
   render(){

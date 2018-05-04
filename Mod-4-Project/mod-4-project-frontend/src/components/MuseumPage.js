@@ -6,9 +6,10 @@ import SortBy from './Museum/SortBy'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
-const homeURL = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/'
+// const homeURL = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/'
 const collectionUrl = 'https://www.rijksmuseum.nl/api/nl/collection/'
 const API = '?key=BDC9BYuC&format=json'
+const typeUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/works-of-art/'
 
 export default class MuseumPage extends React.Component{
   constructor(){
@@ -16,7 +17,10 @@ export default class MuseumPage extends React.Component{
     this.state = {
       artKey: [],
       art: [],
-      filters: 'highlights',
+      filters: {
+        category:'artists',
+        option:''
+       },
       SortBy: '',
       searchTerm: ''
     }
@@ -26,9 +30,9 @@ export default class MuseumPage extends React.Component{
   //   .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item]})))
   // }
   componentDidUpdate(prevProps, prevState){
-    if(prevState.filters !== this.state.filters){
-      this.fetchArtKey()
-    }
+    // if(prevState.filters.option !== this.state.filters.option){
+    //   this.fetchArtKey()
+    // }
     if(prevState.artKey !== this.state.artKey){
       this.fetchArt()
     }
@@ -41,8 +45,14 @@ export default class MuseumPage extends React.Component{
 
     this.setState({searchTerm: searchWord})
   }
-  handleFilters = filterOpt => {
-    this.setState({filters: filterOpt.toLowerCase().split(' ').join('-')})
+  handleFiltersCat = filterCat => {
+    console.log('....',filterCat)
+    this.setState({filters: {...this.state.filters, category: filterCat.category.toLowerCase().split(' ').join('-')}})
+    // this.fetchArtKey()
+  }
+  handleFiltersOption = filterOpt => {
+    console.log('....',filterOpt)
+    this.setState({filters: {...this.state.filters, option: filterOpt.option.toLowerCase().split(' ').join('-')}})
     // this.fetchArtKey()
   }
   handleAddArt = art => {
@@ -53,21 +63,24 @@ export default class MuseumPage extends React.Component{
       alert("This piece is already in your gallery")
     }
   }
-  fetchArtKey(){
-    fetch(artistUrl + this.state.filters+ API).then(r => r.json())
+  fetchArtKey = () => {
+
+    fetch(artistUrl + this.state.filters.option + API).then(r => r.json())
     .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
   }
-  fetchArt(){
+  fetchArt = () => {
     this.state.artKey.forEach(key => fetch(collectionUrl + key + API)
     .then(r => r.json())
     .then(r => this.setState({art: [...this.state.art,r.artObject]})))
   }
   render(){
-    console.log(this.state)
+    console.log(this.state.filters.option)
     return(
       <div>
         <Filter
-        setFilter = {this.handleFilters}
+        setFilterCat = {this.handleFiltersCat}
+        setFilterOption ={this.handleFiltersOption}
+        fetchArtKey = {this.fetchArtKey}
         />
         <MuseumBrowser
         art = {this.state.art}
