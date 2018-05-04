@@ -5,7 +5,7 @@ export default class MuseumBrowser extends React.Component{
   render(){
     const renderArt = this.props.art.map((a,i) => {
       return(
-        <div id="artist-image">
+        <div key = {i} id="artist-image">
           <img height="200" width="auto" src= {a.webImage.url}/>
         </div>
       )

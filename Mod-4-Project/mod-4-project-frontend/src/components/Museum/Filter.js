@@ -12,9 +12,11 @@ export default class Filter extends React.Component{
     }
   }
   handleChangeCategory = event => {
+    this.setState({category: event.target.value})
     this.props.setFilterCat({category: event.target.value})
   }
   handleChangeOption = event => {
+    this.setState({option: event.target.value})
     this.props.setFilterOption({option: event.target.value})
   }
   handleClick = event => {
@@ -32,6 +34,7 @@ export default class Filter extends React.Component{
         <option key = {i} value={type}>{type}</option>
       )
     })
+    const renderFilter = this.state.category === 'artists' ? renderArtistFilter : renderTypeFilter
 
     return(
       <div>
@@ -46,7 +49,7 @@ export default class Filter extends React.Component{
         <div>
           <select onChange={this.handleChangeOption} id="filter-option">
             <option selected= "selected" value="default">Select Option</option>
-            {this.state.category === 'artists' ? renderArtistFilter : renderTypeFilter}
+            {renderFilter}
           </select>
           <button onClick={this.handleClick}>Search</button>
         </div>
