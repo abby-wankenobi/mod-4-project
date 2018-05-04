@@ -18,7 +18,7 @@ export default class MuseumPage extends React.Component{
       artKey: [],
       art: [],
       filters: {
-        category:'artists',
+        category:'',
         option:''
        },
       SortBy: '',
