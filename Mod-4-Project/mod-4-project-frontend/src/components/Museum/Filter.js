@@ -66,7 +66,7 @@ export default class Filter extends React.Component{
       <div>
         Filter By:
         <select id="filter-category" onChange={this.handleChange}>
-          <option value="artist">Artists</option>
+          <option value="artists">Artists</option>
           <option value="materials">Material</option>
           <option value="period">Period</option>
         </select>
