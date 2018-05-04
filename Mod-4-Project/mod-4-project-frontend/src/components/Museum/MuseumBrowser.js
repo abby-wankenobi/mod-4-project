@@ -6,7 +6,7 @@ export default class MuseumBrowser extends React.Component{
     const renderArt = this.props.art.map((a,i) => {
       return(
         <div key = {i}>
-          <a href= {a.page.url}>{a.title}</a>
+          <a href= {a.webImage.url}>{a.title}</a>
         </div>
       )
     })

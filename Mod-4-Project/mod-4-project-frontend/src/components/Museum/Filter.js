@@ -6,7 +6,8 @@ export default class Filter extends React.Component{
     this.state = {
       artists:[],
       types: [],
-      option: 'artists'
+      category: 'artists',
+      option: ''
 
     }
   }
@@ -14,9 +15,16 @@ export default class Filter extends React.Component{
     fetch('https://www.rijksmuseum.nl/api/en/collection/?key=BDC9BYuC&format=json').then(r => r.json()).then(r => r.facets[0].facets.forEach(n => this.setState({artists: [...this.state.artists, n.key]})))
     fetch('https://www.rijksmuseum.nl/api/en/collection/?key=BDC9BYuC&format=json').then(r => r.json()).then(r => r.facets[4].facets.forEach(n => this.setState({types: [...this.state.types, n.key]})))
   }
-  handleChange = event => {
+  handleChangeCategory = event => {
+    this.setState({category: event.target.value})
+  }
+  handleChangeOption = event => {
     this.setState({option: event.target.value})
   }
+  handleClick = event => {
+    this.props.setFilter(this.state.option)
+  }
+
   render(){
     const renderArtistFilter = this.state.artists.map((artist,i) => {
       return(
@@ -31,14 +39,19 @@ export default class Filter extends React.Component{
 
     return(
       <div>
-        Filter By:
-        <select onChange = {this.handleChange} id="filter-category">
-          <option value="artists">Artists</option>
-          <option value="type">Type</option>
-        </select>
-        <select id="filter-options">
-          {this.state.option === 'artists' ? renderArtistFilter : renderTypeFilter}
-        </select>
+        <div>
+          Filter By:
+          <select onChange = {this.handleChangeCategory} id="filter-category">
+            <option value="artists">Artists</option>
+            <option value="type">Type</option>
+          </select>
+        </div>
+        <div>
+          <select onChange={this.handleChangeOption} id="filter-option">
+            {this.state.category === 'artists' ? renderArtistFilter : renderTypeFilter}
+          </select>
+          <button onClick={this.handleClick}>Search</button>
+        </div>
       </div>
     )
   }
