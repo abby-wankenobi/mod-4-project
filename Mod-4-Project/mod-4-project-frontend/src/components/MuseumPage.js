@@ -34,6 +34,7 @@ export default class MuseumPage extends React.Component{
     //   this.fetchArtKey()
     // }
     if(prevState.artKey !== this.state.artKey){
+      this.setState({art: []})
       this.fetchArt()
     }
   }
