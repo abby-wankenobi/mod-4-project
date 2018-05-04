@@ -48,7 +48,7 @@ export default class Filter extends React.Component{
           <option key = {i} value={material}>{material}</option>
         )
       })
-    } else{
+    } else if(this.state.filter === "period"){
       filterOptions= this.state.period.map((period,i) => {
         return(
           <option key = {i} value={period}>{period}</option>
