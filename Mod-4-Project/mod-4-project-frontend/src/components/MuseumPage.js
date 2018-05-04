@@ -30,9 +30,6 @@ export default class MuseumPage extends React.Component{
   //   .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item]})))
   // }
   componentDidUpdate(prevProps, prevState){
-    // if(prevState.filters.option !== this.state.filters.option){
-    //   this.fetchArtKey()
-    // }
     if(prevState.artKey !== this.state.artKey){
       this.setState({art: []})
       this.fetchArt()
@@ -65,9 +62,14 @@ export default class MuseumPage extends React.Component{
     }
   }
   fetchArtKey = () => {
-
-    fetch(artistUrl + this.state.filters.option + API).then(r => r.json())
-    .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
+    if (this.state.filters.category === 'artists'){
+      fetch(artistUrl + this.state.filters.option + API).then(r => r.json())
+      .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
+    }
+    if(this.state.filters.category === 'type'){
+      fetch(typeUrl + this.state.filters.option + API).then(r => r.json())
+      .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
+    }
   }
   fetchArt = () => {
     this.state.artKey.forEach(key => fetch(collectionUrl + key + API)
