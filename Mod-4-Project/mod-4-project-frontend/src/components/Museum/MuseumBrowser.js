@@ -5,13 +5,13 @@ export default class MuseumBrowser extends React.Component{
   render(){
     const renderArt = this.props.art.map((a,i) => {
       return(
-        <div key = {i}>
-          <a href= {a.webImage.url}>{a.title}</a>
+        <div id="artist-image">
+          <img height="200" width="auto" src= {a.webImage.url}/>
         </div>
       )
     })
     return(
-      <div>
+      <div className="grid-container">
         {renderArt}
       </div>
     )
