@@ -10,6 +10,7 @@ export default class MuseumBrowser extends React.Component{
         </div>
       )
     })
+
     return(
       <div className="grid-container">
         {renderArt}
