@@ -25,7 +25,7 @@ const ArtistCard = props => {
         <br></br>
         <br></br>
         <br></br>
-        <button onClick={props.handleArtistClick}>Back to Artist Page</button>
+        <button onClick={props.handleArtistClick}>Back to Results</button>
       </div>
     </div>
   )

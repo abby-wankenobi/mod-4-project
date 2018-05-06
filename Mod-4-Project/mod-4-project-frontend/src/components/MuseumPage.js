@@ -1,8 +1,7 @@
 import React from 'react'
 import MuseumBrowser from './Museum/MuseumBrowser'
 import Filter from './Museum/Filter'
-import Search from './Museum/Search'
-import SortBy from './Museum/SortBy'
+import Login from './Museum/Login'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
@@ -15,6 +14,7 @@ export default class MuseumPage extends React.Component{
   constructor(){
     super()
     this.state = {
+      username:'',
       artKey: [],
       art: [],
       filters: {
@@ -66,7 +66,7 @@ export default class MuseumPage extends React.Component{
       fetch(artistUrl + this.state.filters.option + API).then(r => r.json())
       .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
     }
-    if(this.state.filters.category === 'type'){
+    if(this.state.filters.category === 'medium'){
       fetch(typeUrl + this.state.filters.option + API).then(r => r.json())
       .then(r => this.setState({artKey: r.contentPage.artobjects_on_this_page}))
     }
@@ -76,10 +76,18 @@ export default class MuseumPage extends React.Component{
     .then(r => r.json())
     .then(r => this.setState({art: [...this.state.art,r.artObject]})))
   }
+  handleUsername = username => {
+    this.setState(username: username)
+  }
   render(){
-    console.log(this.state.filters.option)
+    console.log(this.state.filters)
     return(
       <div>
+        <Login
+        setUsername = {this.handleUsername}
+        />
+        {this.state.username !== ''?
+        <div>
         <Filter
         setFilterCat = {this.handleFiltersCat}
         setFilterOption ={this.handleFiltersOption}
@@ -87,7 +95,7 @@ export default class MuseumPage extends React.Component{
         />
         <MuseumBrowser
         art = {this.state.art}
-        />
+        /> </div>: null}
       </div>
     )
   }
