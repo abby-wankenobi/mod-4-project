@@ -7,7 +7,7 @@ import SortBy from './Museum/SortBy'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
 // const homeURL = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/'
-const collectionUrl = 'https://www.rijksmuseum.nl/api/nl/collection/'
+const collectionUrl = 'https://www.rijksmuseum.nl/api/en/collection/'
 const API = '?key=BDC9BYuC&format=json'
 const typeUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/works-of-art/'
 
