@@ -13,7 +13,7 @@ constructor(){
 }
 
   componentDidMount(){
-    fetch('http://localhost:3000/galleries').then(r => r.json()).then(json => this.setState({galleries: json}))
+    fetch('http://localhost:3000/api/v1/galleries').then(r => r.json()).then(json => this.setState({galleries: json}))
   }
 
   saveToGallery = () => {
@@ -25,7 +25,7 @@ constructor(){
       gallery_id: this.state.selectedGallery
     }}
 
-    fetch('http://localhost:3000/artworks', {
+    fetch('http://localhost:3000/api/v1/artworks', {
       method: "POST",
       headers: {"Content-Type" : "application/json"},
       body: JSON.stringify(body)

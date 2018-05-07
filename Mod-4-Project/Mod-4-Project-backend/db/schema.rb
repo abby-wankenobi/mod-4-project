@@ -15,31 +15,32 @@ ActiveRecord::Schema.define(version: 20180503145855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "api_v1_galleries", force: :cascade do |t|
-    t.string "name"
-    t.bigint "api_v1_user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["api_v1_user_id"], name: "index_api_v1_galleries_on_api_v1_user_id"
-  end
-
-  create_table "api_v1_users", force: :cascade do |t|
-    t.string "username"
-    t.string "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "artworks", force: :cascade do |t|
     t.string "title"
     t.string "artist"
     t.string "image"
-    t.bigint "api_v1_gallery_id"
+    t.bigint "gallery_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["api_v1_gallery_id"], name: "index_artworks_on_api_v1_gallery_id"
+    t.index ["gallery_id"], name: "index_artworks_on_gallery_id"
   end
 
-  add_foreign_key "api_v1_galleries", "api_v1_users"
-  add_foreign_key "artworks", "api_v1_galleries"
+  create_table "galleries", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_galleries_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "artworks", "galleries"
+  add_foreign_key "galleries", "users"
 end

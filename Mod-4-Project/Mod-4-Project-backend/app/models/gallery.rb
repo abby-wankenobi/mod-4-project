@@ -1,4 +1,4 @@
-class Api::V1::Gallery < ApplicationRecord
+class Gallery < ApplicationRecord
   belongs_to :user
   has_many :artworks
 end

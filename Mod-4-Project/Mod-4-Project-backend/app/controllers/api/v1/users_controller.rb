@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :require_logged_in, only: [:home, :death]
+  before_action :require_logged_in
   def new
   end
 
