@@ -37,7 +37,7 @@ export default class Login extends React.Component{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Typer': 'application/json'
+        'Content-Type': 'application/json'
       } ,
       body: JSON.stringify({username: this.state.username, password: this.state.password})
     }).then(this.props.setUsername(this.state.username))
