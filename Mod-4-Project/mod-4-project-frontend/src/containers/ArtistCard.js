@@ -23,9 +23,12 @@ const ArtistCard = props => {
         </select>
         <button onClick={props.saveToGallery}>Save</button>
         <br></br>
+        <input onChange={props.handleGalleryChange} placeholder="Create and Add to New Gallery"/>
+        <button onClick={props.saveNewGallery}>Create</button>
         <br></br>
         <br></br>
         <button onClick={props.handleArtistClick}>Back to Results</button>
+        <button>Go to Your Galleries</button>
       </div>
     </div>
   )

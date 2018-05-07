@@ -8,12 +8,31 @@ constructor(){
   this.state = {
     art: "allart",
     galleries: [],
-    selectedGallery: null
+    selectedGallery: null,
+    newGallery: ""
   }
 }
 
   componentDidMount(){
-    fetch('http://localhost:3000/api/v1/galleries').then(r => r.json()).then(json => this.setState({galleries: json}))
+    fetch('http://localhost:3000/api/v1/galleries')
+    .then(r => r.json())
+    .then(json => this.setState({galleries: json}))
+  }
+
+  saveNewGallery = () => {
+    let body = {gallery: {
+      name: this.state.newGallery
+    }}
+
+    fetch('http://localhost:3000/api/v1/galleries', {
+      method: "POST",
+      headers: {"Content-Type" : "application/json"},
+      body: JSON.stringify(body)
+    })
+    .then(r => r.json())
+    .then(json => this.setState({selectedGallery: json.id}))
+
+    this.saveToGallery()
   }
 
   saveToGallery = () => {
@@ -31,7 +50,7 @@ constructor(){
       body: JSON.stringify(body)
     })
     .then(r => r.json())
-    .then(console.log)
+    .then(json => alert("Poop"))
   }
 
   findArtShit = (id) => {
@@ -57,6 +76,13 @@ constructor(){
     })
   }
 
+  handleGalleryChange = (e) => {
+    this.setState({
+      newGallery: e.target.value
+    })
+  }
+
+
   render(){
 
     let renderArt = ""
@@ -72,7 +98,9 @@ constructor(){
                   art={this.state.art}
                   handleArtistClick={this.handleArtistClick}
                   handleChange={this.handleChange}
-                  saveToGallery={this.saveToGallery}/>
+                  saveToGallery={this.saveToGallery}
+                  handleGalleryChange={this.handleGalleryChange}
+                  saveNewGallery={this.saveNewGallery}/>
     }
 
     return(

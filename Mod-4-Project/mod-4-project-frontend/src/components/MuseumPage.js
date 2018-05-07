@@ -2,6 +2,7 @@ import React from 'react'
 import MuseumBrowser from './Museum/MuseumBrowser'
 import Filter from './Museum/Filter'
 import Login from './Museum/Login'
+import GalleryBrowser from './Gallery/GalleryBrowser'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
@@ -22,13 +23,23 @@ export default class MuseumPage extends React.Component{
         option:''
        },
       SortBy: '',
-      searchTerm: ''
+      searchTerm: '',
+      yourGalleries: []
     }
   }
   // componentDidMount(){
   //   fetch(homeURL+this.state.filters+API).then(r => r.json())
   //   .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item]})))
   // }
+
+  componentDidMount(){
+    fetch("http://localhost:3000/api/v1/galleries")
+    .then(r => r.json())
+    .then(json => this.setState({
+      yourGalleries: json
+    }))
+  }
+
   componentDidUpdate(prevProps, prevState){
     if(prevState.artKey !== this.state.artKey){
       this.setState({art: []})
@@ -80,14 +91,9 @@ export default class MuseumPage extends React.Component{
     this.setState(username: username)
   }
   render(){
-    console.log(this.state.filters)
+    console.log(this.state.yourGalleries)
     return(
       <div>
-        <Login
-        setUsername = {this.handleUsername}
-        />
-        {this.state.username !== ''?
-        <div>
         <Filter
         setFilterCat = {this.handleFiltersCat}
         setFilterOption ={this.handleFiltersOption}
@@ -95,7 +101,10 @@ export default class MuseumPage extends React.Component{
         />
         <MuseumBrowser
         art = {this.state.art}
-        /> </div>: null}
+        />
+      <br></br>
+      <br></br>
+        <GalleryBrowser yourGalleries={this.state.yourGalleries}/>
       </div>
     )
   }
