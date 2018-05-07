@@ -1,8 +1,11 @@
 class GalleriesController < ApplicationController
 
   def index
-    @galleries = Gallery.all
-    render json: @galleries
+    if logged_in?
+      render json: Galleries.all
+    else
+      render json: { go_away: true }
+    end
   end
 
   def create
@@ -26,3 +29,4 @@ class GalleriesController < ApplicationController
   def gallery_params
     params.require(:person).permit(:name, :artworks)
   end
+end

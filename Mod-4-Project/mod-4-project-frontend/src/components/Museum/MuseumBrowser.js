@@ -12,9 +12,9 @@ constructor(){
   }
 }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/galleries').then(r => r.json()).then(json => this.setState({galleries: json}))
-  }
+  // componentDidMount(){
+  //   fetch('http://localhost:3000/galleries').then(r => r.json()).then(json => this.setState({galleries: json}))
+  // }
 
   saveToGallery = () => {
 
@@ -58,7 +58,7 @@ constructor(){
   }
 
   render(){
-
+    console.log(this.state)
     let renderArt = ""
 
     if (this.state.art === "allart") {
