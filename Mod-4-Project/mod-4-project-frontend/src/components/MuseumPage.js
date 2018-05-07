@@ -5,7 +5,6 @@ import '../App.css'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
-// const homeURL = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/'
 const collectionUrl = 'https://www.rijksmuseum.nl/api/en/collection/'
 const API = '?key=BDC9BYuC&format=json'
 const typeUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/works-of-art/'
@@ -84,7 +83,7 @@ export default class MuseumPage extends React.Component{
         setFilterOption ={this.handleFiltersOption}
         fetchArtKey = {this.fetchArtKey}
         />
-        
+
         <MuseumBrowser
         art = {this.state.art}
         />
