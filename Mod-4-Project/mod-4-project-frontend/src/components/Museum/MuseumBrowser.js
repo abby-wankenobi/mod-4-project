@@ -1,7 +1,7 @@
 import React from 'react';
 import ArtCard from '../../containers/ArtCard'
 import ArtistCard from '../../containers/ArtistCard'
-
+import '../../App.css'
 export default class MuseumBrowser extends React.Component{
 constructor(){
   super()

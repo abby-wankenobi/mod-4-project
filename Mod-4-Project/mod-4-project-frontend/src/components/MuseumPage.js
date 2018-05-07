@@ -1,6 +1,7 @@
 import React from 'react'
 import MuseumBrowser from './Museum/MuseumBrowser'
 import Filter from './Museum/Filter'
+import '../App.css'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
@@ -83,6 +84,7 @@ export default class MuseumPage extends React.Component{
         setFilterOption ={this.handleFiltersOption}
         fetchArtKey = {this.fetchArtKey}
         />
+        
         <MuseumBrowser
         art = {this.state.art}
         />

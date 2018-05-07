@@ -4,6 +4,7 @@ import LoginForm from './components/Login'
 import RegisterForm from './components/RegisterForm'
 import { Route, Link } from 'react-router-dom';
 import Logout from './components/Logout'
+import './App.css'
 // import GalleryPage from '../components/GalleryPage'
 
 class App extends Component {
@@ -46,13 +47,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <header className="App-header">
-         <h1 className="App-title">Welcome to React</h1>
-
          { this.state.auth ?
-           <div>
-             <Link to="/museum">Museum</Link>
-             <Link to="/logout">Log out</Link>
+           <div id="nav">
+              <a><img width="170" height="50" src='https://www.rijksmuseum.nl/WebStatic/Images/Logo/rijksmuseum-logo-combined.png'/></a>
+              <a className="logout" ><Link to="/logout">Log out</Link></a>
            </div>
            :
            <div>
@@ -60,7 +58,6 @@ class App extends Component {
              <Link to="/login">Login</Link>
            </div>
          }
-       </header>
        <Route path="/register" render={ (renderProps) =>
          <RegisterForm history={ renderProps.history } authSet={ this.authFetched } />
        } />
