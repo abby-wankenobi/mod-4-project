@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate!, only: :create
+  skip_before_action :authenticate!, only: [:create, :index, :show]
 
   def create
     @user = User.new
@@ -15,8 +15,7 @@ class UsersController < ApplicationController
       }
     end
   end
-end
-
-
-
+  def index
+    render json: User.all
+  end
 end
