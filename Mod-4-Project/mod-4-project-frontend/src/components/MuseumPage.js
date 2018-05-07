@@ -1,7 +1,10 @@
 import React from 'react'
 import MuseumBrowser from './Museum/MuseumBrowser'
 import Filter from './Museum/Filter'
-import Login from './Museum/Login'
+import LoginForm from './Login'
+import RegisterForm from './RegisterForm'
+import { Route, Link } from 'react-router-dom';
+import Logout from './Logout'
 // import YourGallery from './Museum/YourGallery'
 
 const artistUrl = 'https://www.rijksmuseum.nl/api/pages/en/rijksstudio/artists/'
@@ -25,10 +28,34 @@ export default class MuseumPage extends React.Component{
       searchTerm: ''
     }
   }
-  // componentDidMount(){
-  //   fetch(homeURL+this.state.filters+API).then(r => r.json())
-  //   .then(r => r.contentPage.categoryItems.forEach(item => this.setState({art: [...this.state.art, item]})))
-  // }
+  componentDidMount() {
+    if (localStorage.auth) {
+      const auth = JSON.parse(localStorage.auth)
+      this.setState({ auth });
+    }
+  }
+
+  authFetched = (auth) =>{
+    localStorage.auth = JSON.stringify(auth);
+    this.setState({ auth });
+  }
+  logout = () => {
+   localStorage.removeItem("auth")
+   this.setState({ auth: null })
+ }
+ authyBits(){
+   if (this.state.auth) {
+     return (<div>
+         <Route path="/logout" render={ (renderProps) => {
+             return <Logout logout={ this.logout } />
+           }
+         } />
+       </div>)
+   }
+   else {
+     return ""
+   }
+ }
   componentDidUpdate(prevProps, prevState){
     if(prevState.artKey !== this.state.artKey){
       this.setState({art: []})
@@ -82,20 +109,31 @@ export default class MuseumPage extends React.Component{
   render(){
     console.log(this.state.filters)
     return(
-      <div>
-        <Login
-        setUsername = {this.handleUsername}
-        />
-        {this.state.username !== ''?
-        <div>
-        <Filter
-        setFilterCat = {this.handleFiltersCat}
-        setFilterOption ={this.handleFiltersOption}
-        fetchArtKey = {this.fetchArtKey}
-        />
-        <MuseumBrowser
-        art = {this.state.art}
-        /> </div>: null}
+      <div className="App">
+        <header className="App-header">
+        {this.state.auth ?
+          <div>
+            <Link to="/logout">Log out</Link>
+            <Filter
+            setFilterCat = {this.handleFiltersCat}
+            setFilterOption ={this.handleFiltersOption}
+            fetchArtKey = {this.fetchArtKey}
+            />
+            <MuseumBrowser
+            art = {this.state.art}
+            /> </div> :
+           <div>
+              <Link to="/register">Register</Link>
+              <Link to="/login">Login</Link>
+            </div>}
+          </header>
+            <Route path="/register" render={ (renderProps) =>
+              <RegisterForm history={ renderProps.history } authSet={ this.authFetched } />
+            } />
+            <Route path="/login" render={ (renderProps) =>
+              <LoginForm history={ renderProps.history } authSet={ this.authFetched } />
+            } />
+            { this.authyBits() }
       </div>
     )
   }

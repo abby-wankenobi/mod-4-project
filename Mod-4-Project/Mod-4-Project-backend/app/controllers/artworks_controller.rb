@@ -1,4 +1,4 @@
-class Api::V1::ArtworksController < ApplicationController
+class ArtworksController < ApplicationController
   def index
     @artworks = Artwork.all
     render json: @artworks
