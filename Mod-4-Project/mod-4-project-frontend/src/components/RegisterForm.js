@@ -14,9 +14,8 @@ export default class RegisterForm extends React.Component {
   handleChange = event => {
     this.setState({[event.target.name]: event.target.value})
   }
-  handleSubmit = event => {
-    event.preventDefault()
-    this.setState({valid: true})
+  handleClick = event => {
+    // event.preventDefault()
     this.postUser()
   }
   postUser = () => {
@@ -27,17 +26,16 @@ export default class RegisterForm extends React.Component {
         "Accept": "application/json"
       },
       body: JSON.stringify({username: this.state.username, password: this.state.password})
-    }).then(r => r.json()).then(text => this.setState({user_id: text.id})).then(this.isValid())
+    }).then(r => r.json()).then(json => this.setState({user_id: json.id, valid: true})).then(this.isValid())
   }
   isValid = () => {
-    if(this.state.valid){
+    console.log('sadas', this.state.valid)
     this.props.valid(this.state.username, this.state.user_id)
-    }
   }
   render(){
     console.log(this.state)
     return (<div>
-      <form onSubmit={ this.handleSubmit }>
+
         <label htmlFor="username">Username</label>
         <input type="text" onChange={ this.handleChange }
                            value={ this.state.username }
@@ -48,8 +46,7 @@ export default class RegisterForm extends React.Component {
                            value={ this.state.password }
                            name="password"
                            id="password" />
-        <input type="submit" />
-      </form>
+      <button onClick = {this.handleClick}>Submit</button>
     </div>)
   }
 

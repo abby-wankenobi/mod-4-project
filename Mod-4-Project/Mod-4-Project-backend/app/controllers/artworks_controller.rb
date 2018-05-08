@@ -5,7 +5,7 @@ class ArtworksController < ApplicationController
     render json: @artworks
   end
   def create
-    @artwork = Artwork.create(name: params[:name])
+    @artwork = Artwork.create(title: params[:name], artist: params[:artist], image: params[:image], gallery: params[:gallery] )
     render json: @artwork
   end
   def show

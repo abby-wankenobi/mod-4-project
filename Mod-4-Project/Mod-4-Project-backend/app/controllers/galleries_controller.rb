@@ -8,7 +8,7 @@ class GalleriesController < ApplicationController
   end
 
   def create
-    @gallery = Gallery.create(name: params[:name])
+    @gallery = Gallery.create(name: params[:name], user: params[:user])
     render json: @gallery
   end
 

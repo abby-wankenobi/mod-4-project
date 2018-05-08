@@ -3,8 +3,8 @@ import ArtCard from '../../containers/ArtCard'
 import ArtistCard from '../../containers/ArtistCard'
 
 export default class MuseumBrowser extends React.Component{
-constructor(){
-  super()
+constructor(props){
+  super(props)
   this.state = {
     art: "allart",
     galleries: [],
@@ -13,30 +13,27 @@ constructor(){
   }
 }
 
-  // componentDidMount(){
-  //   fetch('http://localhost:3000/api/v1/galleries')
-  //   .then(r => r.json())
-  //   .then(json => this.setState({galleries: json}))
-  // }
+  componentDidMount(){
+    fetch('http://localhost:3000/galleries')
+    .then(r => r.json())
+    .then(json => this.setState({galleries: json}))
+  }
 
   saveNewGallery = () => {
     let body = {
-      name: this.state.newGallery
-      user_id: this.props.user_id
-      }
+      name: this.state.newGallery,
+      user: this.props.user_id
+    }
 
     fetch('http://localhost:3000/galleries', {
       method: "POST",
-      headers: {
-        "Content-Type" : "application/json",
-        "Accept": "application/json"
-      },
+      headers: {"Content-Type" : "application/json"},
       body: JSON.stringify(body)
     })
     .then(r => r.json())
-    .then(json => this.setState({selectedGallery: json.id})).then(this.saveToGallery())
+    .then(json => this.setState({selectedGallery: json.id}))
 
-
+    this.saveToGallery()
   }
 
   saveToGallery = () => {
@@ -45,15 +42,12 @@ constructor(){
       title: this.state.art.title,
       artist: this.state.art.principalMaker,
       image: this.state.art.webImage.url,
-      gallery_id: this.state.selectedGallery
+      gallery: this.state.selectedGallery
     }
 
     fetch('http://localhost:3000/artworks', {
       method: "POST",
-      headers: {
-        "Content-Type" : "application/json",
-        "Accept": "application/json"
-      },
+      headers: {"Content-Type" : "application/json"},
       body: JSON.stringify(body)
     })
     .then(r => r.json())
@@ -91,7 +85,8 @@ constructor(){
 
 
   render(){
-    console.log(this.state.art.title)
+    console.log(this.props)
+
     let renderArt = ""
 
     if (this.state.art === "allart") {
