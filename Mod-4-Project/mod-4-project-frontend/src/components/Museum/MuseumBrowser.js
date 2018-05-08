@@ -20,20 +20,22 @@ constructor(){
   }
 
   saveNewGallery = () => {
-    let body = {gallery: {
-      name: this.state.newGallery
-    }}
-
-    fetch('http://localhost:3000/galleries', {
-      method: "POST",
-      headers: {"Content-Type" : "application/json"},
-      body: JSON.stringify(body)
-    })
-    .then(r => r.json())
-    .then(json => this.setState({selectedGallery: json.id}))
-
-    this.saveToGallery()
-  }
+   let body = {gallery: {
+     name: this.state.newGallery,
+     user_id: 1
+   }}
+   console.log(body)
+   fetch('http://localhost:3000/galleries', {
+     method: "POST",
+     headers: {"Content-Type" : "application/json"},
+     body: JSON.stringify(body)
+   })
+   .then(r => r.json())
+   .then(json => {
+     this.setState({selectedGallery: json.id});
+     this.saveToGallery()
+   })
+ }
 
   saveToGallery = () => {
 
@@ -84,7 +86,6 @@ constructor(){
 
 
   render(){
-    console.log(this.state.galleries)
 
     let renderArt = ""
 
