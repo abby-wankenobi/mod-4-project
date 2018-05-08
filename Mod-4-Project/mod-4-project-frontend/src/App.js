@@ -3,51 +3,29 @@ import MuseumPage from './components/MuseumPage'
 import LoginForm from './components/Login'
 import RegisterForm from './components/RegisterForm'
 import { Route, Link } from 'react-router-dom';
-import Logout from './components/Logout'
+// import Logout from './components/Logout'
 import './App.css'
 // import GalleryPage from '../components/GalleryPage'
 
 class App extends Component {
-  state = {
-
-  }
-  componentDidMount() {
-    if (localStorage.auth) {
-      const auth = JSON.parse(localStorage.auth)
-      this.setState({ auth });
-    }
+  this.state = {
+    username: '',
+    user_id: null,
+    valid: false
   }
 
-  authFetched = (auth) =>{
-    localStorage.auth = JSON.stringify(auth);
-    this.setState({ auth });
+
+  handleValid = (username, id) =>{
+    this.setState({username: username })
+    this.setState({user_id: id })
+    this.setState({valid: true })
   }
-  logout = () => {
-   localStorage.removeItem("auth")
-   this.setState({ auth: null })
- }
- authyBits(){
-   if (this.state.auth) {
-     return (
-       <div>
-        <Route path="/museum" render={ (renderProps) => {
-             return <MuseumPage auth={ this.state.auth } />
-           }
-        } />
-         <Route path="/logout" render={ (renderProps) => {
-            return <Logout logout={ this.logout } />
-           }
-         } />
-       </div>)
-   }
-   else {
-     return ""
-   }
- }
+
+
   render() {
     return (
       <div className="App">
-         { this.state.auth ?
+         { this.state.valid ?
           <div>
            <div id="nav">
               <a><img width="170" height="50" src='https://www.rijksmuseum.nl/WebStatic/Images/Logo/rijksmuseum-logo-combined.png'/></a>
@@ -63,12 +41,11 @@ class App extends Component {
            </div>
          }
        <Route path="/register" render={ (renderProps) =>
-         <RegisterForm history={ renderProps.history } authSet={ this.authFetched } />
+         <RegisterForm history={ renderProps.history } valid={ this.handleValid } />
        } />
        <Route path="/login" render={ (renderProps) =>
-         <LoginForm history={ renderProps.history } authSet={ this.authFetched } />
+         <LoginForm history={ renderProps.history } valid={ this.handleValid } />
        } />
-       {this.authyBits()}
      </div>
     );
   }

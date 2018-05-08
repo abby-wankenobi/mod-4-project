@@ -1,5 +1,4 @@
 class ArtworksController < ApplicationController
-  skip_before_action :authenticate!, only: [:index,:create]
 
   def index
     @artworks = Artwork.all

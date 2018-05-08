@@ -1,5 +1,4 @@
 class GalleriesController < ApplicationController
-  skip_before_action :authenticate!, only: [:index,:create]
   def index
     # if logged_in?
       render json: Gallery.all
