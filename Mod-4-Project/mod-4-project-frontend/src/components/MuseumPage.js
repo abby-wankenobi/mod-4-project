@@ -88,6 +88,8 @@ export default class MuseumPage extends React.Component{
         <MuseumBrowser
         art = {this.state.art}
         />
+
+      <a href="http://localhost:3001/galleries">Your Galleries</a>
       </div>
     )
   }

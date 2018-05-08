@@ -5,7 +5,8 @@ export default class GalleryBrowser extends React.Component{
 
   state = {
     galleries: [],
-    gallery_id: ""
+    gallery_id: "",
+    galleryName: ""
   }
 
   componentDidMount(){
@@ -17,14 +18,16 @@ export default class GalleryBrowser extends React.Component{
   }
 
   handleClick = (e) => {
-    console.log(e.target.id)
+    console.log(e.target.title)
     if(this.state.gallery_id === ""){
       this.setState({
-        gallery_id: e.target.id
+        gallery_id: e.target.id,
+        galleryName: e.target.title
       })
     }else{
       this.setState({
-        gallery_id: ""
+        gallery_id: "",
+        galleryName: ""
       })
     }
   }
@@ -33,13 +36,18 @@ export default class GalleryBrowser extends React.Component{
   render(){
     const galleries = this.state.galleries.map(gallery => {
       return (
-        <h3 onClick={this.handleClick} id={gallery.id}>{gallery.name}</h3>
+        <h3 onClick={this.handleClick} title={gallery.name} id={gallery.id}>{gallery.name}</h3>
       )
     })
 
     return(
       <div>
-        {this.state.gallery_id === "" ? galleries : <Gallery handleClick={this.handleClick} galleryID={this.state.gallery_id}/>}
+        {this.state.gallery_id === "" ?
+          <div>
+            <h2>Your Galleries</h2>
+            {galleries}
+          </div> :
+          <Gallery galleryName={this.state.galleryName} handleClick={this.handleClick} galleryID={this.state.gallery_id}/>}
         <a href="http://localhost:3001/museum">Go to Museum</a>
       </div>
     )

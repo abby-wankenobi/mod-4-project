@@ -15,10 +15,10 @@ export default class Gallery extends React.Component{
   }
 
   render(){
-
+    console.log(this.props)
     const art = this.state.artworks.map(art => {
       return (
-        <div>
+        <div className="grid-item">
           <img src={art.image} height='200px'/>
           <h3>{art.title}</h3>
         </div>
@@ -27,7 +27,10 @@ export default class Gallery extends React.Component{
 
     return(
       <div>
-        {art}
+        <h1>{this.props.galleryName}</h1>
+        <div className="galleryGrid">
+          {art}
+        </div>
         <button onClick={this.props.handleClick}>Back to Galleries</button>
       </div>
     )

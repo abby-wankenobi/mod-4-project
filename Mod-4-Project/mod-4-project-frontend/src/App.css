@@ -66,3 +66,15 @@
 .filter{
     padding: 3px
 }
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-row-gap: 20px;
+  padding: 30px;
+}
+
+.grid-item {
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+}
