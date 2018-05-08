@@ -1,11 +1,11 @@
 class GalleriesController < ApplicationController
-
+  skip_before_action :authenticate!, only: [:index,:create]
   def index
-    if logged_in?
-      render json: Galleries.all
-    else
-      render json: { go_away: true }
-    end
+    # if logged_in?
+      render json: Gallery.all
+    # else
+      # render json: { go_away: true }
+    # end
   end
 
   def create

@@ -13,40 +13,45 @@ constructor(){
   }
 }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/api/v1/galleries')
-    .then(r => r.json())
-    .then(json => this.setState({galleries: json}))
-  }
+  // componentDidMount(){
+  //   fetch('http://localhost:3000/api/v1/galleries')
+  //   .then(r => r.json())
+  //   .then(json => this.setState({galleries: json}))
+  // }
 
   saveNewGallery = () => {
-    let body = {gallery: {
-      name: this.state.newGallery
-    }}
+    let body = {
+      name: this.state.newGallery}
 
-    fetch('http://localhost:3000/api/v1/galleries', {
+    fetch('http://localhost:3000/galleries', {
       method: "POST",
-      headers: {"Content-Type" : "application/json"},
+      headers: {
+        "Content-Type" : "application/json",
+        "Accept": "application/javascript"
+      },
       body: JSON.stringify(body)
     })
     .then(r => r.json())
-    .then(json => this.setState({selectedGallery: json.id}))
+    .then(json => this.setState({selectedGallery: json.id})).then(this.saveToGallery())
 
-    this.saveToGallery()
+
   }
 
   saveToGallery = () => {
 
-    let body = {artwork: {
+    let body = {
       title: this.state.art.title,
       artist: this.state.art.principalMaker,
       image: this.state.art.webImage.url,
       gallery_id: this.state.selectedGallery
-    }}
+    }
 
-    fetch('http://localhost:3000/api/v1/artworks', {
+    fetch('http://localhost:3000/artworks', {
       method: "POST",
-      headers: {"Content-Type" : "application/json"},
+      headers: {
+        "Content-Type" : "application/json",
+        "Accept": "application/javascript"
+      },
       body: JSON.stringify(body)
     })
     .then(r => r.json())
@@ -84,7 +89,7 @@ constructor(){
 
 
   render(){
-
+    console.log(this.state.art.title)
     let renderArt = ""
 
     if (this.state.art === "allart") {

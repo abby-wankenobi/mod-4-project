@@ -31,11 +31,11 @@ class App extends Component {
      return (
        <div>
         <Route path="/museum" render={ (renderProps) => {
-            return <MuseumPage auth={ this.state.auth } />
-          }
+             return <MuseumPage auth={ this.state.auth } />
+           }
         } />
          <Route path="/logout" render={ (renderProps) => {
-             return <Logout logout={ this.logout } />
+            return <Logout logout={ this.logout } />
            }
          } />
        </div>)
@@ -48,10 +48,14 @@ class App extends Component {
     return (
       <div className="App">
          { this.state.auth ?
+          <div>
            <div id="nav">
               <a><img width="170" height="50" src='https://www.rijksmuseum.nl/WebStatic/Images/Logo/rijksmuseum-logo-combined.png'/></a>
-              <a className="logout" ><Link to="/logout">Log out</Link></a>
+              <Link to="/logout">Log out</Link>
            </div>
+           <div><MuseumPage/></div>
+           </div>
+
            :
            <div>
              <Link to="/register">Register</Link>
@@ -64,7 +68,7 @@ class App extends Component {
        <Route path="/login" render={ (renderProps) =>
          <LoginForm history={ renderProps.history } authSet={ this.authFetched } />
        } />
-       { this.authyBits() }
+       {this.authyBits()}
      </div>
     );
   }

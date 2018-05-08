@@ -49,6 +49,7 @@ export default class AuthForm extends React.Component {
   }
 
   render(){
+    console.log(this.state)
     return (<div>
       { this.state.errors.length ? this.errors() : "" }
       <form onSubmit={ this.handleSubmit }>
