@@ -1,6 +1,7 @@
 import React from 'react'
 import MuseumBrowser from './Museum/MuseumBrowser'
 import Filter from './Museum/Filter'
+
 import '../App.css'
 // import YourGallery from './Museum/YourGallery'
 

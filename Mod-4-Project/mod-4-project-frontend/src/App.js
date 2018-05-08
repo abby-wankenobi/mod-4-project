@@ -4,6 +4,7 @@ import LoginForm from './components/Login'
 import RegisterForm from './components/RegisterForm'
 import { Route, Link } from 'react-router-dom';
 import Logout from './components/Logout'
+import GalleryBrowser from './components/Gallery/GalleryBrowser'
 import './App.css'
 // import GalleryPage from '../components/GalleryPage'
 
@@ -27,7 +28,6 @@ class App extends Component {
    this.setState({ auth: null })
  }
  authyBits(){
-   if (this.state.auth) {
      return (
        <div>
         <Route path="/museum" render={ (renderProps) => {
@@ -39,14 +39,11 @@ class App extends Component {
            }
          } />
        </div>)
-   }
-   else {
-     return ""
-   }
  }
   render() {
     return (
       <div className="App">
+
          { this.state.auth ?
            <div id="nav">
               <a><img width="170" height="50" src='https://www.rijksmuseum.nl/WebStatic/Images/Logo/rijksmuseum-logo-combined.png'/></a>
@@ -55,6 +52,7 @@ class App extends Component {
            :
            <div>
              <Link to="/register">Register</Link>
+             <br></br>
              <Link to="/login">Login</Link>
            </div>
          }
@@ -64,6 +62,7 @@ class App extends Component {
        <Route path="/login" render={ (renderProps) =>
          <LoginForm history={ renderProps.history } authSet={ this.authFetched } />
        } />
+       <Route path="/galleries" component={GalleryBrowser} />
        { this.authyBits() }
      </div>
     );

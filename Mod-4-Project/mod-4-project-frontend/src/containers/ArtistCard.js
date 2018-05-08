@@ -28,7 +28,8 @@ const ArtistCard = props => {
         <br></br>
         <br></br>
         <button onClick={props.handleArtistClick}>Back to Results</button>
-        <button>Go to Your Galleries</button>
+        <br></br>
+        <a href="http://localhost:3001/galleries">Go to Your Galleries</a>
       </div>
     </div>
   )

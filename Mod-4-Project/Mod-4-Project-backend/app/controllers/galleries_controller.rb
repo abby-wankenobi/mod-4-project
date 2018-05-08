@@ -1,11 +1,9 @@
 class GalleriesController < ApplicationController
 
+  skip_before_action :authenticate!
+
   def index
-    if logged_in?
-      render json: Galleries.all
-    else
-      render json: { go_away: true }
-    end
+    render json: Gallery.all
   end
 
   def create
@@ -22,6 +20,11 @@ class GalleriesController < ApplicationController
     @gallery = Gallery.find(params[:id])
     @gallery.update(gallery_params)
     render json: @gallery
+  end
+
+  def artworks
+    @gallery = Gallery.find(params[:id])
+    render json: @gallery.artworks
   end
 
   private
