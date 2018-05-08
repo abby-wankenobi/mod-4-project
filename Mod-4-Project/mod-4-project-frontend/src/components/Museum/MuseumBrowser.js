@@ -21,13 +21,15 @@ constructor(){
 
   saveNewGallery = () => {
     let body = {
-      name: this.state.newGallery}
+      name: this.state.newGallery
+      user_id: this.props.user_id
+      }
 
     fetch('http://localhost:3000/galleries', {
       method: "POST",
       headers: {
         "Content-Type" : "application/json",
-        "Accept": "application/javascript"
+        "Accept": "application/json"
       },
       body: JSON.stringify(body)
     })
@@ -50,7 +52,7 @@ constructor(){
       method: "POST",
       headers: {
         "Content-Type" : "application/json",
-        "Accept": "application/javascript"
+        "Accept": "application/json"
       },
       body: JSON.stringify(body)
     })

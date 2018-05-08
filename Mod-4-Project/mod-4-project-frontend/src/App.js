@@ -8,12 +8,14 @@ import './App.css'
 // import GalleryPage from '../components/GalleryPage'
 
 class App extends Component {
+  constructor(){
+    super()
   this.state = {
     username: '',
     user_id: null,
     valid: false
   }
-
+}
 
   handleValid = (username, id) =>{
     this.setState({username: username })
@@ -31,21 +33,25 @@ class App extends Component {
               <a><img width="170" height="50" src='https://www.rijksmuseum.nl/WebStatic/Images/Logo/rijksmuseum-logo-combined.png'/></a>
               <Link to="/logout">Log out</Link>
            </div>
-           <div><MuseumPage/></div>
+            <div><MuseumPage
+              username = {this.state.username}
+              user_id = {this.state.user_id}
+            />
+            </div>
            </div>
 
            :
            <div>
              <Link to="/register">Register</Link>
              <Link to="/login">Login</Link>
+             <Route path="/register" render={ (renderProps) =>
+               <RegisterForm history={ renderProps.history } valid={ this.handleValid } />
+             } />
+             <Route path="/login" render={ (renderProps) =>
+               <LoginForm history={ renderProps.history } valid={ this.handleValid } />
+             } />
            </div>
          }
-       <Route path="/register" render={ (renderProps) =>
-         <RegisterForm history={ renderProps.history } valid={ this.handleValid } />
-       } />
-       <Route path="/login" render={ (renderProps) =>
-         <LoginForm history={ renderProps.history } valid={ this.handleValid } />
-       } />
      </div>
     );
   }

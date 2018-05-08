@@ -13,8 +13,6 @@ export default class MuseumPage extends React.Component{
   constructor(){
     super()
     this.state = {
-      username:'',
-      user_id: '',
       artKey: [],
       art: [],
       filters: {
@@ -73,13 +71,8 @@ export default class MuseumPage extends React.Component{
     .then(r => r.json())
     .then(r => this.setState({art: [...this.state.art,r.artObject]})))
   }
-  handleUsername = username => {
-    this.setState(username: username)
-    this.setUserId()
-  }
-  setUserId = () => {
-    fetch('http://localhost:3000/users').then(r => r.json()).then(this.setState({user_id: r => r.find(user => user.username === this.state.username).id}))
-  }
+
+
   render(){
     console.log(this.state)
     return(
@@ -92,6 +85,8 @@ export default class MuseumPage extends React.Component{
 
         <MuseumBrowser
         art = {this.state.art}
+        username = {this.props.username}
+        user_id = {this.props.user_id}
         />
       </div>
     )

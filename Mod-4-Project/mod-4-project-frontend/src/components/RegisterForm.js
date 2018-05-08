@@ -6,7 +6,7 @@ export default class RegisterForm extends React.Component {
     super()
     this.state = {
       username:'',
-      user_id: null,
+      user_id: '',
       password: '',
       valid: false
     }
@@ -24,10 +24,10 @@ export default class RegisterForm extends React.Component {
       method: "POST",
       headers: {
         "Content-Type" : "application/json",
-        "Accept": "application/javascript"
+        "Accept": "application/json"
       },
       body: JSON.stringify({username: this.state.username, password: this.state.password})
-    }).then(r => r.json()).(r => this.setState({user_id: r.id})).then(this.isValid())
+    }).then(r => r.json()).then(text => this.setState({user_id: text.id})).then(this.isValid())
   }
   isValid = () => {
     if(this.state.valid){
@@ -35,6 +35,7 @@ export default class RegisterForm extends React.Component {
     }
   }
   render(){
+    console.log(this.state)
     return (<div>
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="username">Username</label>
