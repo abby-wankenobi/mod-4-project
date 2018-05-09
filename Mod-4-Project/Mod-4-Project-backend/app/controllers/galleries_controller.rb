@@ -7,7 +7,7 @@ class GalleriesController < ApplicationController
   end
 
   def create
-    @gallery = Gallery.create(name: params[:name])
+    @gallery = Gallery.create(gallery_params)
     render json: @gallery
   end
 
@@ -27,9 +27,16 @@ class GalleriesController < ApplicationController
     render json: @gallery.artworks
   end
 
+  def destroy
+    @gallery = Gallery.find(params[:id])
+    @gallery.artworks.destroy_all
+    @gallery.destroy
+    render json: Gallery.all
+  end
+
   private
 
   def gallery_params
-    params.require(:person).permit(:name, :artworks)
+    params.require(:gallery).permit(:name, :artworks, :user_id)
   end
 end

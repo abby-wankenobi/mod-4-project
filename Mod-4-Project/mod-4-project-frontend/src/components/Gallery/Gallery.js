@@ -31,6 +31,7 @@ export default class Gallery extends React.Component{
         <div className="galleryGrid">
           {art}
         </div>
+        <button onClick={this.props.deleteGallery}>Delete Gallery</button>
         <button onClick={this.props.handleClick}>Back to Galleries</button>
       </div>
     )

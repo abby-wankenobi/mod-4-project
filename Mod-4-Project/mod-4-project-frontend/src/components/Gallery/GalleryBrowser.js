@@ -17,6 +17,15 @@ export default class GalleryBrowser extends React.Component{
     }))
   }
 
+  deleteGallery = () => {
+    fetch(`http://localhost:3000/galleries/${this.state.gallery_id}`, {
+      method: "DELETE"
+    }).then(r => r.json())
+    .then(json => this.setState({
+      galleries: json
+    }))
+  }
+
   handleClick = (e) => {
     console.log(e.target.title)
     if(this.state.gallery_id === ""){
@@ -36,7 +45,9 @@ export default class GalleryBrowser extends React.Component{
   render(){
     const galleries = this.state.galleries.map(gallery => {
       return (
-        <h3 onClick={this.handleClick} title={gallery.name} id={gallery.id}>{gallery.name}</h3>
+        <div>
+          <h3 onClick={this.handleClick} title={gallery.name} id={gallery.id}>{gallery.name}</h3>
+        </div>
       )
     })
 
@@ -47,7 +58,7 @@ export default class GalleryBrowser extends React.Component{
             <h2>Your Galleries</h2>
             {galleries}
           </div> :
-          <Gallery galleryName={this.state.galleryName} handleClick={this.handleClick} galleryID={this.state.gallery_id}/>}
+          <Gallery  deleteGallery={this.deleteGallery} galleryName={this.state.galleryName} handleClick={this.handleClick} galleryID={this.state.gallery_id}/>}
         <a href="http://localhost:3001/museum">Go to Museum</a>
       </div>
     )

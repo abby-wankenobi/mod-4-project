@@ -30,9 +30,10 @@ constructor(){
       body: JSON.stringify(body)
     })
     .then(r => r.json())
-    .then(json => this.setState({selectedGallery: json.id}))
-
-    this.saveToGallery()
+    .then(json => {
+      this.setState({selectedGallery: json.id});
+      this.saveToGallery()
+    })
   }
 
   saveToGallery = () => {
@@ -84,7 +85,7 @@ constructor(){
 
 
   render(){
-    console.log(this.state.galleries)
+    console.log(this.state.newGallery)
 
     let renderArt = ""
 
